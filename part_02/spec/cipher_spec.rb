@@ -19,14 +19,12 @@ describe 'Secret' do
         expect( @secret.encrypt 7 ).to eq '4632721820127162673811308251160'
       end
     end
-  end 
+  end
 end
 
-# Acceptance Criteria
-
-# secret = Secret.new('My name is Edward!')
-# secret.encrypt(3) #=> "4228317416831222334726421756"
-# secret.encrypt(7) #=> "4632721820127162673811308251160"
-
-# Bonus
-#'My name is Edward!'.encrypt(3) #=> "4228317416831222334726421756"
+describe 'String' do
+  using Cipher
+  it 'should correctly implement the encrypt method' do
+    expect( 'My name is Edward!'.encrypt 3 ).to eq '4228317416831222334726421756'
+  end
+end
