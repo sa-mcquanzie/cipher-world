@@ -6,7 +6,19 @@ describe 'Secret' do
     test = Secret.new "Testing, 1... 2... 3..!"
   end
 
-  
+  describe '#encrypt' do
+    context 'When a new instance of Secret is created' do
+      it 'should exist as a method of the Secret class and take one argument' do
+        Secret.new("Test").encrypt(42)
+      end
+    end
+
+    context 'When called on Secret.new("0")' do
+      it 'should return "43" when passed 45' do
+        expect(Secret.new('0').encrypt(45)).to eq '43'
+      end
+    end
+  end
 end
 
 
