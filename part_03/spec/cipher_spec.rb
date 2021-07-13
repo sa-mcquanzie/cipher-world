@@ -20,28 +20,36 @@ describe 'Secret' do
     end
 
     context 'When called on Secret.new("Look over there!")' do
-      it 'should return "37141410981421041798190704170452" when passed 2374' do
+      it 'should return the right answer when passed 2374' do
         expect(Secret.new('Look over there!').encrypt(2374)).to eq '37141410981421041798190704170452'
       end
 
-      it 'should return "37141410981421041798190704170452" when passed 2473' do
+      it 'should return the right answer when passed 2473' do
         expect(Secret.new('Look over there!').encrypt(2473)).to eq '37141410981421041798190704170452'
       end
 
-      it 'should return "37141410981421041798190704170452" when passed 2572' do
+      it 'should return the right answer when passed 2572' do
         expect(Secret.new('Look over there!').encrypt(2572)).to eq '37141410981421041798190704170452'
+      end
+    end
+
+    context 'When called on Secret.new("HELLO, 28 $$$!")' do
+      it 'should return the right answer when passed 7' do
+        expect(Secret.new('HELLO, 28 $$$!').encrypt(7)).to eq '4239464649850896030864646461'
+      end
+    end
+
+    context 'When called on Secret.new("       ")' do
+      it 'should return the right answer when passed 20' do
+        expect(Secret.new('       ').encrypt(20)).to eq '21212121212121'
+      end
+    end
+
+    context "When called on Secret.new('\' a double quote can be tricky, as can be \\ backslashes)" do
+      it 'should return the right answer when passed 43' do
+        expect(Secret.new("'\"' a double quote can be tricky, as can be \\ backslashes")
+        .encrypt(43)).to eq '181918444544485965465649446165596449444745584446494464625347556922444563444745584446494420444645475563564563524963'
       end
     end
   end
 end
-
-
-# Acceptance Criteria
-
-# Secret.new('0').encrypt(45) #=> '43'
-# Secret.new('Look over there!').encrypt(2374) #=> "37141410981421041798190704170452"
-# Secret.new('Look over there!').encrypt(2473) #=> "37141410981421041798190704170452"
-# Secret.new('Look over there!').encrypt(2572) #=> "37141410981421041798190704170452"
-# Secret.new('HELLO, 28 $$$!').encrypt(7) #=> "4239464649850896030864646461"
-# Secret.new('       ').encrypt(20) #=> "21212121212121"
-# Secret.new("'\"' a double quote can be tricky, as can be \\ backslashes").encrypt(43) #=> "181918444544485965465649446165596449444745584446494464625347556922444563444745584446494420444645475563564563524963"
