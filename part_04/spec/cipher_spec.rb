@@ -68,4 +68,58 @@ describe 'EncryptedSecret' do
     Kernel.const_defined?('EncryptedSecret')
     test = EncryptedSecret.new "Testing, 1... 2... 3..!"
   end
+
+  describe '#decrypt' do
+    context 'When a new instance of EncryptedSecret is created' do
+      it 'should exist as a method of the EncryptedSecret class and take one argument' do
+        EncryptedSecret.new('Test').decrypt(42)
+      end
+    end
+
+    context 'When passed the ciphertext for "0"' do
+      it 'should decrypt it when encrypted with key 45' do
+        plaintext, key = '0', 45
+        expect(EncryptedSecret.new(Secret.new(plaintext).encrypt(key)).decrypt(key)).to eq plaintext
+      end
+    end
+
+    context 'When passed the ciphertext for "Look over there!"' do
+      it 'should decrypt it when encrypted with key 2374' do
+        plaintext, key = 'Look over there!', 2374
+        expect(EncryptedSecret.new(Secret.new(plaintext).encrypt(key)).decrypt(key)).to eq plaintext
+      end
+
+      it 'should decrypt it when encrypted with key 2473' do
+        plaintext, key = 'Look over there!', 2473
+        expect(EncryptedSecret.new(Secret.new(plaintext).encrypt(key)).decrypt(key)).to eq plaintext
+      end
+
+      it 'should decrypt it when encrypted with key 2572' do
+        plaintext, key = 'Look over there!', 2572
+        expect(EncryptedSecret.new(Secret.new(plaintext).encrypt(key)).decrypt(key)).to eq plaintext
+      end
+    end
+
+    context 'When passed the ciphertext for "HELLO, 28 $$$!"' do
+      it 'should decrypt it when encrypted with key 7' do
+        plaintext, key = 'HELLO, 28 $$$!', 7
+        expect(EncryptedSecret.new(Secret.new(plaintext).encrypt(key)).decrypt(key)).to eq plaintext
+      end
+    end
+
+    context 'When passed the ciphertext for "       "' do
+      it 'should decrypt it when encrypted with key 20' do
+        plaintext, key = '       ', 20
+        expect(EncryptedSecret.new(Secret.new(plaintext).encrypt(key)).decrypt(key)).to eq plaintext
+      end
+    end
+
+    context "When passed the ciphertext for '\' a double quote can be tricky, as can be \\ backslashes''" do
+      it 'should decrypt it when encrypted with key 43' do
+        plaintext = "'\"' a double quote can be tricky, as can be \\ backslashes"
+        key = 43
+        expect(EncryptedSecret.new(Secret.new(plaintext).encrypt(key)).decrypt(key)).to eq plaintext
+      end
+    end
+  end
 end
