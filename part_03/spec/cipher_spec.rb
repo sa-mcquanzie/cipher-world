@@ -18,6 +18,20 @@ describe 'Secret' do
         expect(Secret.new('0').encrypt(45)).to eq '43'
       end
     end
+
+    context 'When called on Secret.new("Look over there!")' do
+      it 'should return "37141410981421041798190704170452" when passed 2374' do
+        expect(Secret.new('Look over there!').encrypt(2374)).to eq '37141410981421041798190704170452'
+      end
+
+      it 'should return "37141410981421041798190704170452" when passed 2473' do
+        expect(Secret.new('Look over there!').encrypt(2473)).to eq '37141410981421041798190704170452'
+      end
+
+      it 'should return "37141410981421041798190704170452" when passed 2572' do
+        expect(Secret.new('Look over there!').encrypt(2572)).to eq '37141410981421041798190704170452'
+      end
+    end
   end
 end
 
