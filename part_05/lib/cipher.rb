@@ -15,5 +15,17 @@ module Cipher
         .sub(/^[0-9]{1}$/) { |num| "0#{num}" }
       end.join
     end
+
+    def decrypt ciphertext
+      plaintext = ""
+  
+      ciphertext.chars.each_slice(2).map(&:join).each do |char|
+        char = char[1..-1] if char[0] == "0"
+        char = @charset.invert[(( char.to_i - @key ) % 99 ).to_s ]
+        plaintext << char
+      end
+  
+      plaintext
+    end
   end
 end

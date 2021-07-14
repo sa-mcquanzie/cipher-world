@@ -5,21 +5,20 @@ describe 'Cipher' do
     @charset1 = 'lib/character_set1.txt'
     @charset2 = 'lib/character_set2.txt'
     @plaintext = 'Look over there!'
+    @ciphertext = '37141410981421041798190704170452'
     @key = 2374
   end 
 
   describe '::LetterNumber' do
     it 'should succesfully encrypt plaintext' do
       @letter_number_cipher = Cipher::LetterNumber.new(charset: @charset1, key: @key)
-      expect(@letter_number_cipher.encrypt(@plaintext))
-      .to eq '37141410981421041798190704170452'
+      expect(@letter_number_cipher.encrypt(@plaintext)).to eq @ciphertext
     end
 
-    # it 'should succesfully decrypt ciphertext' do
-    #   @letter_number_cipher = Cipher::LetterNumber.new(charset: @charset1, key: @key)
-    #   expect(@letter_number_cipher.decrypt("37141410981421041798190704170452"))
-    #   .to eq 'Look over there!'
-    # end
+    it 'should succesfully decrypt ciphertext' do
+      @letter_number_cipher = Cipher::LetterNumber.new(charset: @charset1, key: @key)
+      expect(@letter_number_cipher.decrypt(@ciphertext)).to eq @plaintext
+    end
   end
 
   # describe '::LetterLetter' do
