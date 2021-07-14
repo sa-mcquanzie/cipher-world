@@ -28,4 +28,23 @@ module Cipher
       plaintext
     end
   end
+
+  class LetterLetter
+    def initialize(args)
+      @charset = {}
+      @key = args[:key]
+
+      File.open(args[:charset], 'r') do |f|
+        f.readlines.map(&:chomp).each { |str| @charset[str[0]] = str[str.rindex(",") + 2..-1] }
+      end
+    end
+
+    def encrypt plaintext
+      plaintext.chars.map { |char| @charset[char] }.join
+    end
+
+    def decrypt ciphertext
+      ciphertext.chars.map { |char| @charset.invert[char] }.join
+    end
+  end
 end
