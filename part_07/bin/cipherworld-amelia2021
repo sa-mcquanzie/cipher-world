@@ -4,6 +4,9 @@ require 'cipherworld-amelia2021'
 
 cipher, method, filename, key = ARGV
 
+lnc_dict_path = File.join(File.dirname(__FILE__), "../assets/lnc.txt")
+llc_dict_path = File.join(File.dirname(__FILE__), "../assets/llc.txt")
+
 # Handle bad command line arguments
 
 if ['ln', 'll'].none? cipher
@@ -29,10 +32,10 @@ newname = method == 'enc' ? "#{filename}.enc" : "#{filename.sub(/\.enc$/, '')}"
 text = File.read filename
 
 if cipher == 'ln'
-  lnc = Cipher::LetterNumber.new(charset: 'lnc.txt', key: key)
+  lnc = Cipher::LetterNumber.new(charset: lnc_dict_path, key: key)
   result = method == 'enc' ? lnc.encrypt(text) : lnc.decrypt(text)
 else
-  llc = Cipher::LetterLetter.new(charset: 'llc.txt')
+  llc = Cipher::LetterLetter.new(charset: llc_dict_path)
   result = method == 'enc' ? llc.encrypt(text) : llc.decrypt(text)
 end
 
