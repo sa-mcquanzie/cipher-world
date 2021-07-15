@@ -6,5 +6,6 @@ Gem::Specification.new do |s|
   s.authors     = ["Amelia Scott"]
   s.email       = 'abc.scott@gmail.com'
   s.files       = ["lib/cipherworld-amelia2021.rb", "lib/llc.txt", "lib/lnc.txt"]
+  s.executables << 'cipherworld-amelia2021'
   s.license       = 'MIT'
 end

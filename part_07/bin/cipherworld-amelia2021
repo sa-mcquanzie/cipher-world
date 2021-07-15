@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'cipherworld-amelia2021'
+
+cipher, method, filename, key = ARGV
+
+# Handle bad command line arguments
+
+if ['ln', 'll'].none? cipher
+  puts "Unknown Cipher: #{cipher}. Available ciphers are ln and ll"
+  return
+end
+
+if ['enc', 'dec'].none? method
+  puts "Unknown Action: #{method}. Available actions are enc and dec"
+  return
+end
+
+unless File.file? filename
+  puts "No file found ./#{filename}."
+  return
+end
+
+key = key.to_i ||= 0
+
+# Main Script
+
+newname = method == 'enc' ? "#{filename}.enc" : "#{filename.sub(/\.enc$/, '')}"
+text = File.read filename
+
+if cipher == 'ln'
+  lnc = Cipher::LetterNumber.new(charset: 'lnc.txt', key: key)
+  result = method == 'enc' ? lnc.encrypt(text) : lnc.decrypt(text)
+else
+  llc = Cipher::LetterLetter.new(charset: 'llc.txt')
+  result = method == 'enc' ? llc.encrypt(text) : llc.decrypt(text)
+end
+
+File.write(newname, result)
